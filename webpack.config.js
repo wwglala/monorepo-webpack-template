@@ -1,6 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
+/** @type { import('webpack').Configuration } */
 module.exports = () => {
   return {
     entry: path.resolve(__dirname, "./src/index.tsx"),
@@ -43,6 +45,7 @@ module.exports = () => {
                 ],
                 "@babel/preset-typescript",
               ],
+              plugins:[require.resolve('react-refresh/babel')]
             },
           },
         },
@@ -60,10 +63,10 @@ module.exports = () => {
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "./config/index.html"),
       }),
+      new ReactRefreshPlugin()
     ],
     devServer: {
       historyApiFallback: true,
-      hot: true,
     },
   };
 };
